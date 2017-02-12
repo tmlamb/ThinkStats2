@@ -40,18 +40,30 @@ def AllModes(hist):
     return sorted(hist.Items(), key=itemgetter(1), reverse=True)
 
 
-def CompareFirstBabyWeight(firsts, others):
-    d1 = thinkstats2.CohenEffectSize(firsts.totalwgt_lb, others.totalwgt_lb)
+def CompareFirstBabyWeight(firsts, others, live):
+    mean0 = live.totalwgt_lb.mean()
+    mean1 = firsts.totalwgt_lb.mean()
+    mean2 = others.totalwgt_lb.mean()
 
-    print('Mean first baby weight (lbs)', firsts.totalwgt_lb.mean())
-    print('Mean other baby weight (lbs)', others.totalwgt_lb.mean())
-    print('Cohen\'s d of first and other babies weight', d1)
+    var1 = firsts.totalwgt_lb.var()
+    var2 = others.totalwgt_lb.var()
 
-    d2 = thinkstats2.CohenEffectSize(firsts.prglngth, others.prglngth)
+    print('Mean')
+    print('First babies', mean1)
+    print('Others', mean2)
 
-    print('Mean first baby pregnancy length (weeks)', firsts.prglngth.mean())
-    print('Mean other baby pregnancy length (weeks)', others.prglngth.mean())
-    print('Cohen\'s d of first and other babies pregnancy length', d2)
+    print('Variance')
+    print('First babies', var1)
+    print('Others', var2)
+
+    print('Difference in lbs', mean1 - mean2)
+    print('Difference in oz', (mean1 - mean2) * 16)
+
+    print('Difference relative to mean (%age points)', 
+          (mean1 - mean2) / mean0 * 100)
+
+    d = thinkstats2.CohenEffectSize(firsts.totalwgt_lb, others.totalwgt_lb)
+    print('Cohen d', d)
 
 
 def main(script):
@@ -76,7 +88,7 @@ def main(script):
 
     print('%s: All tests passed.' % script)
 
-    CompareFirstBabyWeight(firsts, others)
+    CompareFirstBabyWeight(firsts, others, live)
 
 
 if __name__ == '__main__':
