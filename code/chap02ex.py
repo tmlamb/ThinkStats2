@@ -21,7 +21,9 @@ def Mode(hist):
 
     returns: value from Hist
     """
-    return 0
+    p, x = max([(p, x) for x, p in hist.Items()])
+
+    return x
 
 
 def AllModes(hist):
@@ -31,7 +33,25 @@ def AllModes(hist):
 
     returns: iterator of value-freq pairs
     """
-    return []
+
+    #return sorted(hist.Items(), key=lambda tup: tup[1], reverse=True)
+    #Apparently itemgetter is faster than the above?
+
+    return sorted(hist.Items(), key=itemgetter(1), reverse=True)
+
+
+def CompareFirstBabyWeight(firsts, others):
+    d1 = thinkstats2.CohenEffectSize(firsts.totalwgt_lb, others.totalwgt_lb)
+
+    print('Mean first baby weight (lbs)', firsts.totalwgt_lb.mean())
+    print('Mean other baby weight (lbs)', others.totalwgt_lb.mean())
+    print('Cohen\'s d of first and other babies weight', d1)
+
+    d2 = thinkstats2.CohenEffectSize(firsts.prglngth, others.prglngth)
+
+    print('Mean first baby pregnancy length (weeks)', firsts.prglngth.mean())
+    print('Mean other baby pregnancy length (weeks)', others.prglngth.mean())
+    print('Cohen\'s d of first and other babies pregnancy length', d2)
 
 
 def main(script):
@@ -55,6 +75,8 @@ def main(script):
         print(value, freq)
 
     print('%s: All tests passed.' % script)
+
+    CompareFirstBabyWeight(firsts, others)
 
 
 if __name__ == '__main__':

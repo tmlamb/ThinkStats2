@@ -44,19 +44,29 @@ def Summarize(live, firsts, others):
     print('Live variance', var)
     print('Live std', std)
 
+    mean0 = live.prglngth.mean()
     mean1 = firsts.prglngth.mean()
     mean2 = others.prglngth.mean()
 
+    var0 = live.prglngth.var()
     var1 = firsts.prglngth.var()
     var2 = others.prglngth.var()
+
 
     print('Mean')
     print('First babies', mean1)
     print('Others', mean2)
+    print('Live', mean0)
 
     print('Variance')
     print('First babies', var1)
     print('Others', var2)
+    print('Live', var0)
+
+    print('Standard Deviation')
+    print('First babies', math.sqrt(var1))
+    print('Others', math.sqrt(var2))
+    print('Live', math.sqrt(var0))
 
     print('Difference in weeks', mean1 - mean2)
     print('Difference in hours', (mean1 - mean2) * 7 * 24)
