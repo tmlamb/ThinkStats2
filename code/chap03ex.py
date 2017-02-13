@@ -106,7 +106,7 @@ def main(script):
 
     pmf = thinkstats2.Pmf(speeds, 'speeds')
 
-    new_pmf = ObservedPmf(pmf, 7.5, 'observed')
+    new_pmf = ObservedPmf(pmf, 6, 'observed')
 
     thinkplot.PrePlot(1)
     thinkplot.Pmfs([pmf, new_pmf])
